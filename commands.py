@@ -37,6 +37,11 @@ image = np.ones(x_size, y_size)
 img_shape = np.shape(image)
 vector = np.linspace(start = start, stop = stop, num = number_of_elements)
 
+spectrum = amplitude_spectrum * np.exp(1j*phase_spectrum)
+spectrum_1 = np.log(np.fft.fftshift(np.abs(np.fft.fft2(image))))
+spectrum_2 = np.fft.fftshift(np.angle(np.fft.fft2(image)))
+image = np.real(np.fft.ifft2(spectrum))
+
 # %% SCIPY
 import scipy
 mat = scipy.io.loadmat('path_to_mat_file').get('label')
@@ -51,3 +56,7 @@ img_as_array = sitk.GetArrayFromImage(image)
 import skimage
 image = skimage.io.imread('path_to_image')
 gs_image = skimage.color.rgb2gray(image)
+img_in_float_from_0_to_1 = skimage.img_as_float(gs_image)
+image = skimage.transform.rotate(image,angle)
+
+
