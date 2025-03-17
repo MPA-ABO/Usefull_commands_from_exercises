@@ -45,6 +45,9 @@ image = np.real(np.fft.ifft2(spectrum))
 # %% SCIPY
 import scipy
 mat = scipy.io.loadmat('path_to_mat_file').get('label')
+filtered_img = scipy.ndimage.gaussian_filter(input = img_noisy, sigma = sigma)
+filtered_img = scipy.signal.convolve2d(img_noisy, psf, mode = 'valid')
+filtered_img = scipy.signal.medfilt2d(input = img_noisy, kernel_size = kernel_size)
 
 # %% SIMPLE ITK
 import SimpleITK as sitk
