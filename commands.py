@@ -61,5 +61,7 @@ image = skimage.io.imread('path_to_image')
 gs_image = skimage.color.rgb2gray(image)
 img_in_float_from_0_to_1 = skimage.img_as_float(gs_image)
 image = skimage.transform.rotate(image,angle)
-
+thresholds_image = skimage.filters.threshold_multiotsu(image, classes=number_of_classes)
+classified_image_after_multiotsu = np.digitize(image, bins=thresholds_image)
+watersheded_image = skimage.segmentation.watershed(image)
 
